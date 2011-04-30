@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  id_klienta: 1
+  id_samochodu: 1
+  data_od: 2011-04-30 19:52:46
+  data_do: 2011-04-30 19:52:46
+
+two:
+  id_klienta: 1
+  id_samochodu: 1
+  data_od: 2011-04-30 19:52:46
+  data_do: 2011-04-30 19:52:46

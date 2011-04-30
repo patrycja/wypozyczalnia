@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  id_klienta: 1
+  id_samochodu: 1
+  data_wyp: 2011-04-30 19:54:09
+  data_zwrotu: 2011-04-30 19:54:09
+  uwagi: MyText
+
+two:
+  id_klienta: 1
+  id_samochodu: 1
+  data_wyp: 2011-04-30 19:54:09
+  data_zwrotu: 2011-04-30 19:54:09
+  uwagi: MyText

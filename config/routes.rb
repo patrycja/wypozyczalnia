@@ -1,5 +1,14 @@
 Wypozyczalnia::Application.routes.draw do
   devise_for :users
+  
+  resources :cars
+  resources :reservations
+  resources :rents
+  resources :users do
+    resources :cars
+    resources :reservations
+    resources :rents
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

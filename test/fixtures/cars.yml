@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  marka: MyString
+  poj_silnika: 1
+  typ_silnika: MyString
+  liczba_osob: 1
+
+two:
+  marka: MyString
+  poj_silnika: 1
+  typ_silnika: MyString
+  liczba_osob: 1

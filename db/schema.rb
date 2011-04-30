@@ -10,7 +10,35 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110430170806) do
+ActiveRecord::Schema.define(:version => 20110430194118) do
+
+  create_table "cars", :force => true do |t|
+    t.string   "marka"
+    t.integer  "poj_silnika"
+    t.string   "typ_silnika"
+    t.integer  "liczba_osob"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "rents", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "car_id"
+    t.datetime "data_wyp"
+    t.datetime "data_zwrotu"
+    t.text     "uwagi"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "reservations", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "car_id"
+    t.datetime "data_od"
+    t.datetime "data_do"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                                 :default => "",    :null => false
@@ -28,6 +56,9 @@ ActiveRecord::Schema.define(:version => 20110430170806) do
     t.boolean  "admin",                                 :default => false
     t.boolean  "klient",                                :default => false
     t.boolean  "recepcja",                              :default => false
+    t.string   "imie"
+    t.string   "nazwisko"
+    t.text     "adres"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
