@@ -1,4 +1,4 @@
-<h2>Sign in</h2>
+<h2>Zaloguj się do systemu</h2>
 
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
   <p><%= f.label :email %><br />
@@ -11,7 +11,9 @@
     <p><%= f.check_box :remember_me %> <%= f.label :remember_me %></p>
   <% end -%>
 
-  <p><%= f.submit "Sign in" %></p>
+  <p><%= f.submit "Zaloguj się" %></p>
 <% end %>
+
+<h2><%= link_to "Lub przeglądaj samochody jako gość", cars_path %><br />
 
 <%= render :partial => "devise/shared/links" %>

@@ -1,0 +1,14 @@
+<h1><span style='color: #000'>Profil użytkownika:</span>
+<%= current_user.name %> <%= current_user.surname %></h1><br/>
+
+<h4>Imię: <span style='color: #E6324B'><%= current_user.imie %></span></h4>
+<h4>Nazwisko: <span style='color: #E6324B'><%= current_user.nazwisko %></span></h4>
+<h4>Adres: <span style='color: #E6324B'><%= current_user.adres %></span></h4>
+<h4>E-mail: <span style='color: #E6324B'><%= current_user.email %></span></h4>
+
+<p>Data ostatniego logowania: <%= l current_user.last_sign_in_at, :format => :long %></p>
+<p>Ostatnio logowałeś się z IP: <%= current_user.last_sign_in_ip %></p>
+
+<br/>
+<%= button_to "Edytuj profil", edit_user_registration_path, :method => 'get' %><br/><br/>
+<%= link_to "Powrot", :back %>

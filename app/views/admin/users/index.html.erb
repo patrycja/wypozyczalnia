@@ -1,0 +1,31 @@
+Zalogowano jako: <%= current_user.email %>.
+<br/><br/>
+<%= link_to "Dodaj nowego uzytkownika", new_user_path %>
+
+<h1>Zapisani uzytkownicy:</h1>
+<hr/>
+<% @users.each do |u| %>
+ <li><%= u.email -%>
+     |
+	 <%= link_to "Przeloguj na tego uzytkownika", {:action => "become", 
+	  :controller => "admin/users", :id => u.id}, :confirm => "Na pewno?" %>
+	 |
+	 <%= link_to "Usun uzytkownika", {:action => "destroy",
+	  :controller => "admin/users", :id => u.id}, :confirm => "Na pewno?!", :method => :delete %></li>
+ <%- form_for [:admin, u] do |f|%>
+	<% if u.errors.any? %>
+       <%= pluralize(u.errors.count, "error") %> nie mozna zapisac:
+		<ul>
+			<% u.errors.full_messages.each do |msg| %>
+			<li><%= msg %></li>
+			<% end %>
+		</ul>
+	<% end %>
+  Admin?: <%= f.check_box :admin %>
+  <%= f.submit "Zapisz zmiany" %>
+  <%- end %>
+  <hr/>
+<% end %>
+<br>
+
+<%= link_to "Powrot", cars_path %>

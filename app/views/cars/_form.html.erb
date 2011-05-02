@@ -1,0 +1,20 @@
+<%- form_for @car do |f|%>
+	<% if @car.errors.any? %>
+	<p />
+	<h2><%= pluralize(@car.errors.count, "error") %> nie mozna zapisac:</h2>
+		<ul>
+			<% @car.errors.full_messages.each do |msg| %>
+			<li><%= msg %></li>
+			<% end %>
+		</ul>
+	<% end %>
+<p><label for="car_marka">Marka</label>:
+<%= f.text_field 'marka' %></p>
+<p><label for="car_poj_sinika">Pojemność silnika</label>:
+<%= f.text_field 'poj_silnika' %></p>
+<p><label for="car_typ_sinika">Typ silnika</label>:
+<%= f.text_field 'typ_silnika' %></p>
+<p><label for="car_liczba_osob">Liczba osób</label>:
+<%= f.text_field 'liczba_osob' %></p>
+<%= f.submit "Zapisz zmiany" %>
+<%- end %>

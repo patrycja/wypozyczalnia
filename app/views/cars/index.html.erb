@@ -1,0 +1,11 @@
+<% unless @cars.any? %>
+	W bazie nie ma żadnych samochodów
+<% else %>
+	<% @cars.each do |c| %>
+	<li>
+		<%= link_to c.marka, car_path(c) %><br/>
+	</li>
+	<% end %>
+<% end %><br />
+
+<%= link_to "Wyloguj sie", destroy_user_session_path %>

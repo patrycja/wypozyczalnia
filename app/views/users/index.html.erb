@@ -1,0 +1,10 @@
+jestes zalogowany jako: <%= current_user.imie %> <%= current_user.nazwisko %><br />
+admin? <%= current_user.admin %> <br />
+<%= link_to "Edytuj profil", edit_user_registration_path %><br />
+
+<% if current_user.admin? %>
+	<%= link_to "Zarządzaj użytkownikami", admin_users_path %><br />
+	<%= link_to "Dodaj samochód", new_car_path %><br />
+<% end %>
+
+<%= link_to "Wyloguj się", destroy_user_session_path %><br />
