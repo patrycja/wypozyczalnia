@@ -1,5 +1,4 @@
 class ReservationsController < ApplicationController
-  attr_accessor :data_od, :data_do
   before_filter :authenticate_user!
 
    def index
@@ -13,12 +12,9 @@ class ReservationsController < ApplicationController
 
     def create
       @car = Car.find(params[:car_id])
-      #from = params[:data_od]
-      #to = params[:data_do]
-      #if check_reservation(from, to)
-        @reservation = @car.reservations.create(params[:reservation])
-        @reservation.update_attributes(:user_id => current_user.id)
+      @reservation = @car.reservations.create(params[:reservation])
        if @reservation.save
+        @reservation.update_attributes(:user_id => current_user.id)
         flash[:notice] = "Zarezerwowano"
         redirect_to :action => "show", :id => @car, :controller => "cars"
       else
@@ -49,17 +45,4 @@ class ReservationsController < ApplicationController
       redirect_to cars_path(@car)
     end
     
-    private
-
-    def check_reservation(from, to)
-      all_res = @car.reservations.find(:all).to_a
-      earlier_res = @car.reservations.find(:all, :conditions => ["data_od < '#{from}' AND data_do < '#{to}'"]).to_a
-      later_res = @car.reservations.find(:all, :conditions => ["data_od > '#{from}' AND data_do > '#{to}'"]).to_a
-      collision_list = all_res - earlier_res - later_res
-      if collision_list.any?
-        return false
-      else
-        return true
-      end
-    end
 end

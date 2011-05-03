@@ -8,7 +8,7 @@
 	Rezerwacje:
 	<% @car.reservations.each do |r| %>
 	<li>
-		<%= r.data_od %> - <%# (l r.data_do, :format => :short) %> <%= r.car_id %> <%= r.user_id %>
+		<%= (l r.data_od, :format => :short) %> - <%= (l r.data_do, :format => :short) %> car id: <%= r.car_id %> user id: <%= r.user_id %>
 	</li>
 	<% end %>
 </p>
