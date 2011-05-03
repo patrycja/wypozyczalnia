@@ -1,0 +1,16 @@
+<%- form_for [@reservation.car, @reservation] do |f| %>
+	<% if @reservation.errors.any? %>
+	<p />
+	<h2><%= pluralize(@reservation.errors.count, "error") %> nie mozna zapisac:</h2>
+		<ul>
+			<% @reservation.errors.full_messages.each do |msg| %>
+			<li><%= msg %></li>
+			<% end %>
+		</ul>
+	<% end %>
+<p><label for="reservation_data_od">Od kiedy</label>:
+<%= f.datetime_select 'data_od' %><br/>
+<p><label for="reservation_data_do">Do kiedy</label>:
+<%= f.datetime_select 'data_do' %><br/>
+<%= f.submit "Zapisz zmiany" %>
+<%- end %>

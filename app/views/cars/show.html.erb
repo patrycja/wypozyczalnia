@@ -4,4 +4,15 @@
 	Typ silnika: <%= @car.typ_silnika %><br />
 	Liczba osób: <%= @car.liczba_osob %>
 </p>
-<%= link_to "Powrót", :back %>
+<p>
+	Rezerwacje:
+	<% @car.reservations.each do |r| %>
+	<li>
+		<%= r.data_od %> - <%# (l r.data_do, :format => :short) %> <%= r.car_id %> <%= r.user_id %>
+	</li>
+	<% end %>
+</p>
+<% if user_signed_in? %>
+	<%= link_to "Zarezerwuj", :action => 'new', :controller => 'reservations', :car_id => @car.id, :user_id => current_user.id %>
+<% end %><br />
+<%= link_to "Powrót", cars_path %>

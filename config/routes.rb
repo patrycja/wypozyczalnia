@@ -10,7 +10,11 @@ Wypozyczalnia::Application.routes.draw do
     root :to => "users#index"
   end
   
-  resources :cars
+  resources :cars do
+    resources :reservations
+    resources :rents
+  end
+  
   resources :reservations
   resources :rents
   

@@ -5,6 +5,7 @@ admin? <%= current_user.admin %> <br />
 <% if current_user.admin? %>
 	<%= link_to "Zarządzaj użytkownikami", admin_users_path %><br />
 	<%= link_to "Dodaj samochód", new_car_path %><br />
+	<%= link_to "Zarzadzaj samochodami", cars_path %><br />
 <% end %>
 
 <%= link_to "Wyloguj się", destroy_user_session_path %><br />

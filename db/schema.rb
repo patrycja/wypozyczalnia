@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(:version => 20110502101431) do
     t.integer  "liczba_osob"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "dostepny"
+    t.boolean  "dostepny",    :default => true
   end
 
   create_table "rents", :force => true do |t|

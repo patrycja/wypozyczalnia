@@ -3,9 +3,22 @@
 <% else %>
 	<% @cars.each do |c| %>
 	<li>
-		<%= link_to c.marka, car_path(c) %><br/>
+		<%= link_to c.marka, car_path(c) %>
+		<% if user_signed_in? %>
+			<% if current_user.admin? %>
+				<%= link_to "Edytuj", edit_car_path(c) %>
+				<%= link_to "Usun", car_path(c), :action => "destroy", :method => :delete, :confirm => "Na pewno chcesz usunąć ten samochód?" %>
+			<% end %>
+		<% end %>
+		<% if c.dostepny? %>
+			<strong>DOSTĘPNY</strong>
+		<% end %>
 	</li>
 	<% end %>
 <% end %><br />
 
-<%= link_to "Wyloguj sie", destroy_user_session_path %>
+<% if user_signed_in? %>
+	<%= link_to "Wyloguj sie", destroy_user_session_path %>
+<% else %>
+	<%= link_to "Zaloguj sie", new_user_session_path %>
+<% end %>

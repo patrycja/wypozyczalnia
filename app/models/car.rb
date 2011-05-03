@@ -1,4 +1,5 @@
-class Car < ActiveRecord::Base
-  belongs_to :reservation
-  belongs_to :rent
+class Car < ActiveRecord::Base  
+  has_many :reservations
+  has_many :rents
+
 end

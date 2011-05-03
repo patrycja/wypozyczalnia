@@ -9,6 +9,8 @@ gem 'pg'
 gem "meta_search"
 gem "will_paginate", "~> 3.0.pre2"
 gem 'devise',  :git => "http://github.com/plataformatec/devise.git" 
+gem 'validates_timeliness', '~> 3.0.2'
+# gem 'date_validator'
 
 # Use unicorn as the web server
 # gem 'unicorn'

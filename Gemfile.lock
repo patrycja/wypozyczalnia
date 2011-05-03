@@ -77,9 +77,12 @@ GEM
       thor (~> 0.14.4)
     rake (0.8.7)
     thor (0.14.6)
+    timeliness (0.3.3)
     treetop (1.4.9)
       polyglot (>= 0.3.1)
     tzinfo (0.3.27)
+    validates_timeliness (3.0.5)
+      timeliness (~> 0.3.2)
     warden (1.0.3)
       rack (>= 1.0.0)
     will_paginate (3.0.pre2)
@@ -92,4 +95,5 @@ DEPENDENCIES
   meta_search
   pg
   rails (= 3.0.7)
+  validates_timeliness (~> 3.0.2)
   will_paginate (~> 3.0.pre2)
