@@ -2,7 +2,7 @@ class Reservation < ActiveRecord::Base
   belongs_to :car
   belongs_to :user
   
-  before_save :check_reservation
+  before_validation_on_create :check_reservation
   
   def check_reservation
     @car = Car.find(:all, :conditions => ["id = ?", self.car_id]).first
