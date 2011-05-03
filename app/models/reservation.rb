@@ -2,7 +2,11 @@ class Reservation < ActiveRecord::Base
   belongs_to :car
   belongs_to :user
   
+  validates_presence_of :data_od, :data_do
+  
   before_validation_on_create :check_reservation
+  validates_datetime :data_od, :on => :create, :on_or_after => :now
+  validates_datetime :data_do, :on => :create, :on_or_after => :now
   
   def check_reservation
     @car = Car.find(:all, :conditions => ["id = ?", self.car_id]).first

@@ -1,13 +1,14 @@
 <% unless @cars.any? %>
 	W bazie nie ma żadnych samochodów
 <% else %>
+	<%= render 'searchform' %>
 	<% @cars.each do |c| %>
 	<li>
 		<%= link_to c.marka, car_path(c) %>
 		<% if user_signed_in? %>
 			<% if current_user.admin? %>
 				<%= link_to "Edytuj", edit_car_path(c) %>
-				<%= link_to "Usun", car_path(c), :action => "destroy", :method => :delete, :confirm => "Na pewno chcesz usunąć ten samochód?" %>
+				<%= link_to "Usuń", car_path(c), :action => "destroy", :method => :delete, :confirm => "Na pewno chcesz usunąć ten samochód?" %>
 			<% end %>
 		<% end %>
 		<% if c.dostepny? %>
@@ -16,6 +17,12 @@
 	</li>
 	<% end %>
 <% end %><br />
+
+<% if user_signed_in? %>
+	<% if current_user.admin? %>
+		<%= link_to "Dodaj samochód", new_car_path %><br />
+	<% end %>
+<% end %>
 
 <% if user_signed_in? %>
 	<%= link_to "Wyloguj sie", destroy_user_session_path %>

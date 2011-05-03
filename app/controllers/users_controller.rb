@@ -37,8 +37,11 @@ class UsersController < ApplicationController
   
   def destroy
     @user = User.find(params[:id])
-    #dodac sprawdzanie, czy user nie ma wypozyczonego/zarezerwowanego samochodu
-    @user.destroy
-    redirect_to users_path
+    if @user.rents.empty?
+      @user.destroy
+      redirect_to users_path
+    else
+      flash[:notice] = "Nie mozna usunac uzytkownika, ktory wypozyczal samochod"
+    end
   end
 end

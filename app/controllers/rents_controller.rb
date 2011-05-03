@@ -12,8 +12,9 @@ class RentsController < ApplicationController
 
    def create
      @car = Car.find(params[:car_id])
-     @rent = @car.rents.build(params[:rent])
+     @rent = @car.rents.create(params[:rent])
      if @rent.save
+       @car.update_attributes(:dostepny => :false)
        flash[:notice] = "Wypozyczono"
        redirect_to :action => "show", :id => @car, :controller => "cars"
      else
@@ -41,6 +42,7 @@ class RentsController < ApplicationController
      @car = Car.find(params[:car_id])
      @rent = @car.rents.find(params[:id])
      @rent.destroy
+     @car.update_attributes(:dostepny => :true)
      redirect_to users_path
    end
 

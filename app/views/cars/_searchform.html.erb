@@ -1,0 +1,6 @@
+<%= form_for @search, :url => cars_path, :html => {:method => :get} do |f| %>
+  Wyszukaj samochody dostępne w terminie: <br />
+  Od: <%= f.date_select :reservations_data_do_less_than, :include_blank => true %><br />
+  Do: <%= f.date_select :reservations_data_od_greater_than, :include_blank => true %><br />
+  <%= f.submit "Szukaj" %>
+<% end %>

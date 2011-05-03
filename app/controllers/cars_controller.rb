@@ -2,8 +2,9 @@ class CarsController < ApplicationController
   before_filter :authenticate_user!, :except => [:index, :show]
   
   def index
-    @cars = Car.find(:all)
     @user = current_user
+    @search = Car.search(params[:search])
+    @cars = @search.all
   end
   
   def show
@@ -38,7 +39,12 @@ class CarsController < ApplicationController
   
    def destroy
      @car = Car.find(params[:id])
-     @car.destroy
-     redirect_to cars_path
+     if @car.rents.empty?
+       @car.destroy
+       redirect_to cars_path
+     else
+      flash[:notice] = "Nie mozna usunac samochodu, ktory byl wypozyczony"
+      redirect_to cars_path
+     end
    end
 end
