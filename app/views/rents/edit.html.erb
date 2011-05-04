@@ -1,0 +1,14 @@
+<%- form_for [@rent.car, @rent] do |f| %>
+	<% if @rent.errors.any? %>
+	<p />
+	<h2><%= pluralize(@rent.errors.count, "error") %> nie mozna zapisac:</h2>
+		<ul>
+			<% @rent.errors.full_messages.each do |msg| %>
+			<li><%= msg %></li>
+			<% end %>
+		</ul>
+	<% end %>
+<p><label for="rent_data_zwrotu">Oddano</label>:
+<%= f.date_select 'data_zwrotu' %><br/>
+<%= f.submit "Zapisz zmiany" %>
+<%- end %>

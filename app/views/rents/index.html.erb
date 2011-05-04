@@ -1,0 +1,21 @@
+<h3>Samochody niewypożyczone:</h3>
+<% @cars.each do |c| %>
+	<% if c.dostepny? %>
+		<li>
+		<%= link_to c.marka, car_path(c)%>
+		</li>
+	<% end %>
+<% end %>
+<hr>
+<h3>Samochody wypożyczone:</h3>
+<% @cars.each do |c| %>
+  <% unless c.dostepny? %>
+	    <li>
+	    <%= link_to c.marka, :action => 'show', :controller => 'cars', :id => c.id %>
+	   </li>
+   	  <% end %>
+<% end %>	
+<br/><br/>
+<hr>
+<%= link_to "Powrot", users_path %><br />
+<%= link_to "Wyloguj", destroy_user_session_path %>

@@ -2,8 +2,8 @@ class RentsController < ApplicationController
  before_filter :authenticate_user!
  
   def index
-    @car = Car.find(params[:car_id])
  	  @rents = Rent.find(:all)
+ 	  @cars = Car.find(:all)
   end
 
    def new
@@ -13,12 +13,12 @@ class RentsController < ApplicationController
    def create
      @car = Car.find(params[:car_id])
      @rent = @car.rents.create(params[:rent])
+     @car.update_attributes(:dostepny => :false)
      if @rent.save
-       @car.update_attributes(:dostepny => :false)
        flash[:notice] = "Wypozyczono"
        redirect_to :action => "show", :id => @car, :controller => "cars"
      else
-       flash[:error] = "Błąd zapisu"
+       flash[:error] = "Blad zapisu"
        redirect_to :action => "show", :id => @car, :controller => "cars"
      end  
    end
@@ -31,7 +31,9 @@ class RentsController < ApplicationController
     def update
       @car = Car.find(params[:car_id])
       @rent = @car.rents.find(params[:id])
-      if @car.rents.update_attributes(params[:rent])
+      @car.update_attributes(:dostepny => true)
+      if @rent.update_attributes(params[:rent])
+        flash[:notice] = "Przyjeto zwrot"
          redirect_to :action => 'show', :id => @car, :controller => "cars"
       else
          render :action => 'edit'
@@ -42,7 +44,6 @@ class RentsController < ApplicationController
      @car = Car.find(params[:car_id])
      @rent = @car.rents.find(params[:id])
      @rent.destroy
-     @car.update_attributes(:dostepny => :true)
      redirect_to users_path
    end
 

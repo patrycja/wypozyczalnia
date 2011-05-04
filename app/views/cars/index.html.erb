@@ -1,21 +1,31 @@
 <% unless @cars.any? %>
 	W bazie nie ma żadnych samochodów
 <% else %>
-	<%= render 'searchform' %>
+	<h3>Wyszukaj samochody dostępne w podanym terminie:</h3><br />
+	<%- form_for cars_path, :html => {:method => :get} do |f| %>
+	 Od: <%= f.date_select 'from' %> -- 
+	 Do: <%= f.date_select 'to' %>  
+	 <%= f.submit 'Szukaj' %>
+	<% end %> <br />
 	<% @cars.each do |c| %>
 	<li>
 		<%= link_to c.marka, car_path(c) %>
+		
 		<% if user_signed_in? %>
 			<% if current_user.admin? %>
 				<%= link_to "Edytuj", edit_car_path(c) %>
 				<%= link_to "Usuń", car_path(c), :action => "destroy", :method => :delete, :confirm => "Na pewno chcesz usunąć ten samochód?" %>
 			<% end %>
 		<% end %>
+		
 		<% if c.dostepny? %>
-			<strong>DOSTĘPNY</strong>
-		<% end %>
+			<strong>DOSTĘPNY</strong><br />
+		<% else %>
+			WYPOŻYCZONY<br />
+		<% end %><br />
 	</li>
 	<% end %>
+<center><%= will_paginate ({:previous_label => "&#8592; Poprzednia", :next_label => "Nastepna &#8594;"}) %></center>
 <% end %><br />
 
 <% if user_signed_in? %>
@@ -23,9 +33,9 @@
 		<%= link_to "Dodaj samochód", new_car_path %><br />
 	<% end %>
 <% end %>
-
+<hr>
 <% if user_signed_in? %>
-	<%= link_to "Wyloguj sie", destroy_user_session_path %>
+	<%= link_to "Wyloguj się", destroy_user_session_path %>
 <% else %>
-	<%= link_to "Zaloguj sie", new_user_session_path %>
+	<%= link_to "Zaloguj się", new_user_session_path %>
 <% end %>

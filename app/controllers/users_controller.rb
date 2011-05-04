@@ -1,12 +1,11 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
+  attr_reader :per_page
   
   def index
     @user = current_user
-  end
-  
-  def show
-    @user = User.find(params[:id])
+    users = User.find(:all)
+    @users = users.paginate :page => params[:page], :per_page => 3
   end
   
   def new
@@ -41,6 +40,7 @@ class UsersController < ApplicationController
       @user.destroy
       redirect_to users_path
     else
+      redirect_to users_path
       flash[:notice] = "Nie mozna usunac uzytkownika, ktory wypozyczal samochod"
     end
   end

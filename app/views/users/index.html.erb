@@ -1,10 +1,26 @@
-jestes zalogowany jako: <%= current_user.imie %> <%= current_user.nazwisko %><br />
-admin? <%= current_user.admin %> <br />
-<%= link_to "Edytuj profil", edit_user_registration_path %><br />
-
+<center><h1>Wypożyczalnia samochodów</h1></center>
+<h2>Jesteś zalogowany jako: <%= current_user.imie %> <%= current_user.nazwisko %></h2>
+<% if current_user.admin? %> <h3> Administracja </h3>
+<% elsif current_user.recepcja? %> <h3> Recepcja </h3> 
+<% else %><h3> Klient </h3><%end %><br />
+<hr>
 <% if current_user.admin? %>
-	<%= link_to "Dodaj/usuń użytkownika", admin_users_path %><br />
 	<%= link_to "Dodaj/usuń samochód", cars_path %><br />
+	<%= link_to "Dodaj użytkownika", 'http://localhost:3000/admin/users/new' %> <br />
+<h3>	Zapisani użytkownicy:
+	<% @users.each do |u| %>
+	<li>
+		<%= u.email %>
+		<%= link_to "Usuń", user_path(u), :action => "destroy", :method => "delete", :confirm => "Na pewno?" %>
+	</li>
+	<% end %>
+<center><%= will_paginate ({:previous_label => "&#8592; Poprzednia", :next_label => "Nastepna &#8594;"}) %></center></h3>
 <% end %>
-
+<% if current_user.recepcja? %>
+	<%= link_to "Wypożyczenia", rents_path %><br />
+<% end %>
+<% if current_user.klient? %>
+	<%= link_to "Przeglądaj samochody", cars_path %><br />
+<% end %>
+<hr>
 <%= link_to "Wyloguj się", destroy_user_session_path %><br />

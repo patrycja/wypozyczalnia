@@ -7,10 +7,10 @@ gem 'rails', '3.0.7'
 
 gem 'pg'
 gem "meta_search"
+gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
 gem "will_paginate", "~> 3.0.pre2"
 gem 'devise',  :git => "http://github.com/plataformatec/devise.git" 
 gem 'validates_timeliness', '~> 3.0.2'
-# gem 'date_validator'
 
 # Use unicorn as the web server
 # gem 'unicorn'

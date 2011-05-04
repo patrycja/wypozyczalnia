@@ -1,0 +1,19 @@
+<%- form_for [@rent.car, @rent] do |f| %>
+	<% if @rent.errors.any? %>
+	<p />
+	<h2><%= pluralize(@rent.errors.count, "error") %> nie mozna zapisac:</h2>
+		<ul>
+			<% @rent.errors.full_messages.each do |msg| %>
+			<li><%= msg %></li>
+			<% end %>
+		</ul>
+	<% end %>
+<p><label for="rent_data_wyp">Od kiedy</label>:
+<%= f.date_select 'data_wyp' %><br/>
+<p><label for="rent_user_id">Użytkownik</label>:
+<%= f.collection_select(:user_id,
+                         User.find(:all), :id, :email) %></p>
+<%= f.label :uwagi, "Dodatkowe uwagi:" %>
+<%= f.text_area :uwagi, :rows => 3, :cols => 37 %><br />
+<%= f.submit "Zapisz zmiany" %>
+<%- end %>

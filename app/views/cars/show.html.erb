@@ -1,18 +1,37 @@
 <h1><%= @car.marka %></h1>
 <p>
-	Pojemność silnika (cm3): <%= @car.poj_silnika %><br/>
+	<h3>Pojemność silnika (cm3): <%= @car.poj_silnika %><br/>
 	Typ silnika: <%= @car.typ_silnika %><br />
-	Liczba osób: <%= @car.liczba_osob %>
+	Liczba osób: <%= @car.liczba_osob %></h3>
 </p>
 <p>
-	Rezerwacje:
-	<% @car.reservations.each do |r| %>
-	<li>
-		<%= (l r.data_od, :format => :short) %> - <%= (l r.data_do, :format => :short) %> car id: <%= r.car_id %> user id: <%= r.user_id %>
+	<% if user_signed_in? %>
+	  <% if current_user.admin? %>
+    <hr><h3>	Rezerwacje:
+    	<% @car.reservations.each do |r| %>
+    	<li>
+		<%= (l r.data_od, :format => :short) %> - <%= (l r.data_do, :format => :short) %> przez: <%= User.where("id = ?", r.user_id).first.email %></h3>
 	</li>
+    	<% end %>
+	  <% end %>
 	<% end %>
 </p>
 <% if user_signed_in? %>
+	<% if current_user.klient? %>
 	<%= link_to "Zarezerwuj", :action => 'new', :controller => 'reservations', :car_id => @car.id, :user_id => current_user.id %>
-<% end %><br />
+	<% elsif current_user.recepcja? %>
+	<% if @car.dostepny? %>
+    	<br/><%= link_to "Wypożycz", :action => 'new', :controller => 'rents', :car_id => @car.id %>
+	<% else %>
+	<hr>
+    	<% @car.rents.each do |r| %>
+	      <% if r.data_zwrotu == nil %>
+			<h3>Wypożyczony przez: <%= User.where("id = ?", r.user_id).first.email %><br/>
+			Dodatkowe uwagi: <%= r.uwagi %><br/></h3>
+	        <%= link_to "Przyjmij zwrot", :action => 'edit', :controller => 'rents', :id => r, :car_id => @car %>
+	      <% end %>
+    	<% end %>
+	<% end %>
+<% end %>
+<% end %><br /><br />
 <%= link_to "Powrót", cars_path %>

@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/sferik/rails_admin.git
+  revision: ed17210a8d49505f12f26f61bbd27f6600d7a2f9
+  specs:
+    rails_admin (0.0.1)
+      builder (~> 2.1.0)
+      rails (~> 3.0.6)
+
+GIT
   remote: http://github.com/plataformatec/devise.git
   revision: b1a27ad6338638e537adf3fc1814e3f1dcf5d811
   specs:
@@ -95,5 +103,6 @@ DEPENDENCIES
   meta_search
   pg
   rails (= 3.0.7)
+  rails_admin!
   validates_timeliness (~> 3.0.2)
   will_paginate (~> 3.0.pre2)

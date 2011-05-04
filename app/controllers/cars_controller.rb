@@ -1,10 +1,18 @@
 class CarsController < ApplicationController
   before_filter :authenticate_user!, :except => [:index, :show]
+  attr_reader :per_page
   
   def index
     @user = current_user
-    @search = Car.search(params[:search])
-    @cars = @search.all
+    
+    if(params[:from] and params[:to])
+      from = convert_date(params[:cars], :from)
+      to = convert_date(params[:cars], :to)
+      @cars = Car.available_in(from, to)
+    else
+      cars = Car.all
+      @cars = cars.paginate :page => params[:page], :per_page => 5
+    end
   end
   
   def show
@@ -46,5 +54,12 @@ class CarsController < ApplicationController
       flash[:notice] = "Nie mozna usunac samochodu, ktory byl wypozyczony"
       redirect_to cars_path
      end
+   end
+   
+   private
+
+   def convert_date(hash, date_symbol_or_string)
+     attribute = date_symbol_or_string.to_s
+     return Date.new(hash[attribute + '(1i)'].to_i, hash[attribute + '(2i)'].to_i, hash[attribute + '(3i)'].to_i)   
    end
 end
